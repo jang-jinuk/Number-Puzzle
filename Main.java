@@ -13,6 +13,10 @@ public class Main {
         int turn = 1;
         System.out.printf("turn %d%n",turn); // 현재 턴 출력
 
+        MixNumber();
+        scanNumber();
+    }
+    static void MixNumber(){
         int[] szBuffer = new int[8]; // 1 ~ 8까지 숫자를 무작위로 섞기
         for (int i = 0; i < 8; i++) {
             szBuffer[i] = (int) (Math.random() * 8 + 1);
@@ -23,22 +27,22 @@ public class Main {
         }
         System.out.print("[ ");
         for (int num:szBuffer // 섞은 숫자 출력
-             ) {
+        ) {
             System.out.print(num + " ");
         }
         System.out.print("] \n");
-
-        Scanner scanner = new Scanner(System.in); //숫자 입력 받기
+    }
+    static void scanNumber(){
         int nInput_1 = 0, nInput_2 = 0;
 
-
+        Scanner scanner = new Scanner(System.in); //숫자 입력 받기
         do{
-            System.out.print("교환할 두 숫자 입력 > "); //입력 받은 숫자 유효성 검사
-            nInput_1 = scanner.nextInt();
-            nInput_2 = scanner.nextInt();
-            if(nInput_1 < 1 || nInput_1 > 8 || nInput_2 < 1 || nInput_2 > 8){
-                System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.\n");
-            }
+        System.out.print("교환할 두 숫자 입력 > "); //입력 받은 숫자 유효성 검사
+        nInput_1 = scanner.nextInt();
+        nInput_2 = scanner.nextInt();
+        if(nInput_1 < 1 || nInput_1 > 8 || nInput_2 < 1 || nInput_2 > 8){
+            System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.\n");
+        }
         }while(nInput_1 < 1 || nInput_1 > 8);
     }
 }
