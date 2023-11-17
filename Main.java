@@ -5,7 +5,6 @@
 
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -17,24 +16,24 @@ public class Main {
         System.out.println("간단 숫자 퍼즐"); // 타이틀 출력
 
         int[] NumberPuzzle = new int[8];
-        NumberPuzzle =  MixNumber();
+        NumberPuzzle =  MixNumber(); // 1~8 숫자 섞어주기
 
         while (true){
 
-            System.out.printf("turn %d%n",turn); // 현재 턴 출력
+            System.out.printf("turn %d%n",turn); // 턴 출력
             turn++;
 
             PrintNumber(NumberPuzzle);
             int[] nInputArray;
-            nInputArray = scanNumber();
+            nInputArray = scanNumber(); // 두가지 숫자 입력 받기
 
             int a, b;
             a = nInputArray[0];
             b = nInputArray[1];
 
-            NumberPuzzle = NumChange(a, b, NumberPuzzle);
+            NumberPuzzle = NumChange(a, b, NumberPuzzle); // 두가지 숫자 교환
 
-            if (Arrays.equals(RightAnswer,NumberPuzzle)) {
+            if (Arrays.equals(RightAnswer,NumberPuzzle)) { // 게임종료
                 System.out.printf("축하합니다! %d턴만에 퍼즐을 완성하셨습니다!",turn);
                 break;
             }
