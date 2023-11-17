@@ -4,13 +4,15 @@
 // 4. "교환할 두 숫자 입력"라는 프롬포트 출력 (반복해서 출력)
 
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         int turn = 1;
 
-        int[] RightAnswer = {1, 2, 3, 4, 5 ,6, 7, 8};
+        int[] RightAnswer = new int[] {1, 2, 3, 4, 5 ,6, 7, 8};
 
         System.out.println("간단 숫자 퍼즐"); // 타이틀 출력
 
@@ -32,9 +34,7 @@ public class Main {
 
             NumberPuzzle = NumChange(a, b, NumberPuzzle);
 
-
-
-            if (RightAnswer == NumberPuzzle) {
+            if (Arrays.equals(RightAnswer,NumberPuzzle)) {
                 System.out.printf("축하합니다! %d턴만에 퍼즐을 완성하셨습니다!",turn);
                 break;
             }
