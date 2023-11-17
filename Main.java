@@ -15,6 +15,7 @@ public class Main {
 
         int[] NumberPuzzle = new int[8];
         NumberPuzzle =  MixNumber();
+        PrintNumber(NumberPuzzle);
         int[] nInputArray;
         nInputArray = scanNumber();
 
@@ -23,9 +24,10 @@ public class Main {
         b = nInputArray[1];
 
        NumberPuzzle = NumChange(a, b,NumberPuzzle);
+       PrintNumber(NumberPuzzle);
 
     }
-    static int[] MixNumber(){
+    static int[] MixNumber() {
         int[] szBuffer = new int[8]; // 1 ~ 8까지 숫자를 무작위로 섞기
         for (int i = 0; i < 8; i++) {
             szBuffer[i] = (int) (Math.random() * 8 + 1);
@@ -34,13 +36,16 @@ public class Main {
                     --i;
             }
         }
+        return szBuffer;
+    }
+    static void PrintNumber(int[] NumberPuzzle){
+
         System.out.print("[ ");
-        for (int num:szBuffer // 섞은 숫자 출력
+        for (int num:NumberPuzzle // 섞은 숫자 출력
         ) {
             System.out.print(num + " ");
         }
         System.out.print("] \n");
-        return szBuffer;
     }
     static int[] scanNumber(){
         int nInput_1 = 0, nInput_2 = 0;
@@ -80,10 +85,6 @@ public class Main {
             if (ObjectNum[j] == b)
                 changeBox_2 = j;
         }
-
-        tmp = changeBox_1;
-        changeBox_1 = changeBox_2;
-        changeBox_2 = tmp;
 
         ObjectNum[changeBox_1] = b;
         ObjectNum[changeBox_2] = a;
