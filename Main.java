@@ -8,23 +8,37 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("간단 숫자 퍼즐"); // 타이틀 출력
-
         int turn = 1;
-        System.out.printf("turn %d%n",turn); // 현재 턴 출력
+
+        int[] RightAnswer = {1, 2, 3, 4, 5 ,6, 7, 8};
+
+        System.out.println("간단 숫자 퍼즐"); // 타이틀 출력
 
         int[] NumberPuzzle = new int[8];
         NumberPuzzle =  MixNumber();
-        PrintNumber(NumberPuzzle);
-        int[] nInputArray;
-        nInputArray = scanNumber();
 
-        int a, b;
-        a = nInputArray[0];
-        b = nInputArray[1];
+        while (true){
 
-       NumberPuzzle = NumChange(a, b,NumberPuzzle);
-       PrintNumber(NumberPuzzle);
+            System.out.printf("turn %d%n",turn); // 현재 턴 출력
+            turn++;
+
+            PrintNumber(NumberPuzzle);
+            int[] nInputArray;
+            nInputArray = scanNumber();
+
+            int a, b;
+            a = nInputArray[0];
+            b = nInputArray[1];
+
+            NumberPuzzle = NumChange(a, b, NumberPuzzle);
+
+
+
+            if (RightAnswer == NumberPuzzle) {
+                System.out.printf("축하합니다! %d턴만에 퍼즐을 완성하셨습니다!",turn);
+                break;
+            }
+        }
 
     }
     static int[] MixNumber() {
