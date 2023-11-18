@@ -9,99 +9,96 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int turn = 1;
 
-        int[] RightAnswer = new int[] {1, 2, 3, 4, 5 ,6, 7, 8};
+        int[] puzzleNumber = new int[8];
 
         System.out.println("간단 숫자 퍼즐"); // 타이틀 출력
-
-        int[] NumberPuzzle = new int[8];
-        NumberPuzzle =  MixNumber(); // 1~8 숫자 섞어주기
-
-        while (true){
-
-            System.out.printf("turn %d%n",turn); // 턴 출력
-            turn++;
-
-            PrintNumber(NumberPuzzle);
-            int[] nInputArray;
-            nInputArray = scanNumber(); // 두가지 숫자 입력 받기
-
-            int a, b;
-            a = nInputArray[0];
-            b = nInputArray[1];
-
-            NumberPuzzle = NumChange(a, b, NumberPuzzle); // 두가지 숫자 교환
-
-            if (Arrays.equals(RightAnswer,NumberPuzzle)) { // 게임종료
-                System.out.printf("축하합니다! %d턴만에 퍼즐을 완성하셨습니다!",turn);
-                break;
-            }
-        }
+        puzzleNumber = mixNumber(); // 1~8 숫자 섞어주기
+        startGame(puzzleNumber); //  게임진행
 
     }
-    static int[] MixNumber() {
-        int[] szBuffer = new int[8]; // 1 ~ 8까지 숫자를 무작위로 섞기
+    static int[] mixNumber() {    // 1 ~ 8까지 숫자를 무작위로 섞기
+        int[] puzzleBox = new int[8];
         for (int i = 0; i < 8; i++) {
-            szBuffer[i] = (int) (Math.random() * 8 + 1);
+            puzzleBox[i] = (int) (Math.random() * 8 + 1);
             for (int j = 0; j < i; j++) {
-                if (szBuffer[i] == szBuffer[j])
+                if (puzzleBox[i] == puzzleBox[j])
                     --i;
             }
         }
-        return szBuffer;
+        return puzzleBox;
     }
-    static void PrintNumber(int[] NumberPuzzle){
+    static void printNumber(int[] NumberPuzzle) {
 
         System.out.print("[ ");
-        for (int num:NumberPuzzle // 섞은 숫자 출력
-        ) {
-            System.out.print(num + " ");
+        for (int number:NumberPuzzle) {     //섞은 숫자 출력
+            System.out.print(number + " ");
         }
         System.out.print("] \n");
     }
-    static int[] scanNumber(){
-        int nInput_1 = 0, nInput_2 = 0;
+    static int[] scanNumber() {
+        int changeNum_1 = 0, changeNum_2 = 0;
 
         Scanner scanner = new Scanner(System.in); //숫자 입력 받기
         do{
         System.out.print("교환할 두 숫자 입력 > "); //입력 받은 숫자 유효성 검사
-        nInput_1 = scanner.nextInt();
-        nInput_2 = scanner.nextInt();
-        if(nInput_1 < 1 || nInput_1 > 8 || nInput_2 < 1 || nInput_2 > 8){
+        changeNum_1 = scanner.nextInt();
+        changeNum_2 = scanner.nextInt();
+        if(changeNum_1 < 1 || changeNum_1 > 8 || changeNum_2 < 1 || changeNum_2 > 8) {
             System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.\n");
         }
-        }while(nInput_1 < 1 || nInput_1 > 8);
+        }while(changeNum_1 < 1 || changeNum_1 > 8);
 
-        int[] nInput = new int[2];
-
-        nInput[0] = nInput_1;
-        nInput[1] = nInput_2;
-
-
-        return nInput;
+        int[] changeNumArry = new int[2];
+        
+        changeNumArry[0] = changeNum_1;
+        changeNumArry[1] = changeNum_2;
+        
+        return changeNumArry;
     }
-    static int[] NumChange(int a,int b, int[] c)
-    {
-        int[] ObjectNum = new int[8];
-        ObjectNum = c;
+    static int[] changeNumber(int changeNum_1, int changeNum_2, int[] changeObject) {
 
-        int changeBox_1 = 0, changeBox_2 = 0;
+        int changeIdx_1 = 0, changeIdx_2 = 0;
         int tmp = 0;
-        for (int i = 0; i < 8; i++)
-        {
-            if (ObjectNum[i] == a)
-                changeBox_1 = i;
+
+        for (int i = 0; i < 8; i++) {
+            if (changeObject[i] == changeNum_1)
+                changeIdx_1 = i;
         }
-        for (int j = 0; j < 8; j++)
-        {
-            if (ObjectNum[j] == b)
-                changeBox_2 = j;
+        for (int j = 0; j < 8; j++) {
+            if (changeObject[j] == changeNum_2)
+                changeIdx_2 = j;
         }
 
-        ObjectNum[changeBox_1] = b;
-        ObjectNum[changeBox_2] = a;
+        changeObject[changeIdx_1] = changeNum_2;
+        changeObject[changeIdx_2] = changeNum_1;
 
-        return ObjectNum;
+        return changeObject;
+    }
+    static void startGame(int[] puzzleNumber) {
+        int turn = 1;
+
+        int[] rightAnswer = new int[] {1, 2, 3, 4, 5 ,6, 7, 8};
+
+        while (true) {
+
+            System.out.printf("turn %d\n",turn); // 턴 출력
+            turn++;
+
+            printNumber(puzzleNumber);
+            int[] userNumber;
+            userNumber = scanNumber(); // 두가지 숫자 입력 받기
+
+            int changeNum_1, changeNum_2;
+            changeNum_1 = userNumber[0];
+            changeNum_2 = userNumber[1];
+
+            puzzleNumber = changeNumber(changeNum_1, changeNum_2, puzzleNumber); // 두가지 숫자 교환
+
+            if (Arrays.equals(rightAnswer,puzzleNumber)) { // 게임종료
+                System.out.printf("축하합니다! %d턴만에 퍼즐을 완성하셨습니다!",turn);
+                break;
+            }
+        }
     }
 }
